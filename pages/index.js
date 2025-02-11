@@ -8,6 +8,7 @@ import { Card, CardContent } from './components/ui/card';
 import { Input } from './components/ui/input';
 import { Textarea } from './components/ui/textarea';
 import { Button } from './components/ui/button';
+import { University } from "lucide-react";
 
 
 
@@ -107,7 +108,7 @@ export default function Home() {
           transition={{ duration: 1, delay: 0.3 }}
           className="text-5xl font-bold mt-2"
         >
-          Hi, I'm <span className="text-purple-600">Oshadi</span>
+          Hi, I'm <span className="text-purple-600">Dinidu</span>
         </motion.h1>
 
         <motion.h2
@@ -125,7 +126,7 @@ export default function Home() {
           transition={{ duration: 1, delay: 0.7 }}
           className="text-lg text-gray-1000 mt-6 max-w-3xl font-medium text-center"
         >
-          I am a Computer Science student, graguated from SLIIT as a Software Engineer. I'm ready to explore and contribute in various domains. 
+          I am a Computer Science student, graguated from "University" as a Software Engineer. I'm ready to explore and contribute in various domains. 
           Whether it's software development, data analysis, or artificial intelligence, I am eager 
           to tackle new challenges and make a positive impact.
         </motion.p>
@@ -137,13 +138,13 @@ export default function Home() {
           transition={{ duration: 1, delay: 1 }}
           className="flex space-x-6 mt-6"
         >
-          <a href="https://www.linkedin.com/in/oshadi-senevirathna-91b182244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white-500   transition">
+          <a href="link to linkdin" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white-500   transition">
             <FaLinkedin className="text-gray-500  text-2xl" />
           </a>
-          <a href="https://github.com/it21096884" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white transition">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white transition">
             <FaGithub className="text-gray-500  text-2xl" />
           </a>
-          <a href="mailto:neeranjala905@gmail.com" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white transition">
+          <a href="mailto:email" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white transition">
             <FaEnvelope className="text-gray-500  text-2xl" />
           </a>
           
@@ -158,7 +159,7 @@ export default function Home() {
                 <h3 className="text-purple-600 text-lg font-semibold">ABOUT</h3>
                 <h1 className="text-4xl font-bold mt-2">Who I Am</h1>
                 <p className="text-gray-1000 mt-6 max-w-3xl text-lg text-left">
-                  Hello! I'm Oshadi, a passionate and dedicated computer science student with a love for 
+                  Hello! I'm Dinidu, a passionate and dedicated computer science student with a love for 
                   learning and creating projects in various tech stacks. I thrive on exploring new technologies 
                   and leveraging them to build innovative solutions. With a strong foundation in computer science 
                   principles and practical experience in multiple frameworks and languages, I enjoy the challenge 
@@ -173,7 +174,7 @@ export default function Home() {
               {/* Right Section - Profile Image */}
               <div className="md:w-1/3 mt-6 md:mt-0 md:ml-12">
                 <img
-                  src="/prof.jpeg"
+                  src="/dinidu.jpeg"
                   alt="Profile"
                   className="rounded-2xl shadow-lg"
                 />
@@ -279,7 +280,7 @@ export default function Home() {
                     alt="Business Card" 
                     className="rounded-lg mb-4 w-full"
                   />
-                  <h2 className="text-2xl font-bold mb-2 text-gray-600">Oshadi Senevirathna</h2>
+                  <h2 className="text-2xl font-bold mb-2 text-gray-600">Dinidu Bandara</h2>
                   <p className="text-gray-600 mb-4">
                     I'm looking forward to connecting with like-minded professionals and finding opportunities to make an impact.
                   </p>

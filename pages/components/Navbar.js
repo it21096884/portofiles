@@ -17,7 +17,7 @@ export default function Navbar() {
     
       <nav className="fixed top-0 left-0 w-full bg-white dark:bg-gray-900 shadow-md z-70">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Oshadi Senevirathna</h1>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Dinidu Bandara</h1>
         
        
 <ul className="hidden md:flex space-x-10 text-gray-1000 dark:text-gray-1000 text-lg font-medium">
