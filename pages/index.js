@@ -80,8 +80,24 @@ const projects = [
       
 
   return (
-    <div className={darkMode ? "dark bg-gray-1000 text-gray-2000" : "bg-gray-1000 text-gray-1000 min-h-screen"}>
-      <Navbar />
+      <div className={`relative w-full min-h-screen ${darkMode ? "dark" : ""}`}>
+        <Navbar />
+          
+        <video
+        key={darkMode} // This forces a re-render when darkMode changes
+        className="absolute top-0 left-0 w-full h-full object-cover z-[-1] min-w-full min-h-full"
+        style={{
+        objectFit: "cover",
+        width: "100vw",
+        height: "100vh",
+        }}
+        autoPlay
+        loop
+        muted
+        playsInline
+        src={darkMode ? "/nightt.mp4" : "/morrr.mp4"}
+        >
+        </video>
       
       {/* Hero Section */}
       <section id = "home" className="flex flex-col items-center justify-center h-screen text-center px-4">
