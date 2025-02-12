@@ -36,7 +36,7 @@ export default function Navbar() {
   {/* Resume Button - Opens Google Drive CV in a New Tab */}
   <li>
     <a
-      href="https://drive.google.com/file/d/1ic4JEOhvfp4uqwnqBZwQRVJetCDxVVGK/view?usp=sharing" // Replace YOUR_CV_ID with actual ID
+      href="https://drive.google.com/file/d/1833NVPQ_-VPZhV7sdI19w_SXL4BB3uya/view?usp=sharing" // Replace YOUR_CV_ID with actual ID
       target="_blank"
       rel="noopener noreferrer"
       className="cursor-pointer hover:text-blue-500 transition"
