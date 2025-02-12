@@ -174,7 +174,7 @@ export default function Home() {
               {/* Right Section - Profile Image */}
               <div className="md:w-1/3 mt-6 md:mt-0 md:ml-12">
                 <img
-                  src="/dinidu.jpeg"
+                  src="/dinidu_prof.jpeg"
                   alt="Profile"
                   className="rounded-2xl shadow-lg"
                 />
