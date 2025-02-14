@@ -1,13 +1,65 @@
+"use client";
+
 import { motion } from "framer-motion";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope, FaDiscord } from "react-icons/fa";
 import Navbar from "./components/Navbar";
 import ThemeContext from "./context/ThemeContext";
-import React, { useState } from "react";
 import { Card, CardContent } from './components/ui/card';
 import { Input } from './components/ui/input';
 import { Textarea } from './components/ui/textarea';
 import { Button } from './components/ui/button';
+
+const CloudAnimation = () => {
+  const clouds = ["/cloud-8107.png", "/cloud-8120.png"];
+  
+  const [cloudData, setCloudData] = useState([]);
+
+  useEffect(() => {
+    const generateClouds = () =>
+      Array.from({ length: 6 }).map((_, index) => ({
+        width: Math.random() * 1000 + 800,
+        height: Math.random() * 600 + 400,
+        top: Math.random() * 50,
+        left: -100,
+        image: clouds[Math.floor(Math.random() * clouds.length)],
+        delay: 30,
+        speed: Math.random() * 10 + 10,
+      }));
+
+    setCloudData(generateClouds());
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {cloudData.map((cloud, i) => (
+        <motion.div
+          key={i}
+          className="absolute"
+          style={{
+            backgroundImage: `url('${cloud.image}')`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            width: `${cloud.width}px`,
+            height: `${cloud.height}px`,
+            top: `${cloud.top}vh`,
+            left: `${cloud.left}vw`,
+            opacity: 0.4,
+            zIndex: 0
+          }}
+          animate={{
+            x: ["0vw", "300vw"],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: cloud.speed,
+            ease: "linear",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const SkillCard = ({ skill }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -209,6 +261,8 @@ export default function Home() {
         </motion.div>
       </section>
 
+
+      {/* Who I am */}
       <div id = "about" className="flex flex-row items-center justify-center h-screen px-10 text-center">
               {/* Left Section - About Text */}
               <div className="text-center md:w-1/2 md:text-left">
@@ -309,28 +363,41 @@ I thrive in collaborative environments, having worked on multiple projects where
 
       {/* Contact Section */}
       <section id="contact" className="flex flex-col items-center justify-center min-h-screen px-10 py-16 dark:bg-gray-800">
-        <h2 className="text-xl font-semibold tracking-wide text-purple-600 uppercase">Contact</h2>
-        <h1 className="mt-2 mb-6 text-4xl font-bold text-gray-800 dark:text-white">Let's Get in Touch</h1>
-
-        <form className="w-full max-w-2xl p-8 bg-white shadow-lg rounded-xl dark:bg-gray-700">
-          <div className="flex flex-col space-y-4">
-            <div>
-              <label className="text-gray-700 dark:text-white">Name</label>
-              <Input type="text" placeholder="Your Name" />
+      <div id = "contact" className="flex flex-col items-center justify-center h-screen px-10 text-center">
+            <h1 className="mb-8 text-4xl font-bold text-center">Get In Touch</h1>
+            <div className="grid justify-center max-w-4xl grid-cols-3 gap-8 mx-auto align-middle md:grid-cols-1">
+              {/* Left Card */}
+              <Card className="shadow-lg animate-fade-in-up">
+                <CardContent className="p-6">
+                  <img 
+                    src="./cont.jpg" 
+                    alt="Business Card" 
+                    className="w-full mb-4 rounded-lg"
+                  />
+                  <h2 className="mb-2 text-2xl font-bold text-gray-600">Oshadi Senevirathna</h2>
+                  <p className="mb-4 text-gray-600">
+                  I'm looking forward to connecting with like-minded professionals and exploring opportunities to make an impact. Whether it’s about collaborating on innovative projects, discussing new technologies, or sharing ideas, I’d love to hear from you
+                  </p>
+                  <p className="mb-4 text-black-bold">I am open to work.</p>
+                  <h3 className="mb-2 text-lg font-semibold text-gray-600">Connect with me</h3>
+                  <div className="flex justify-center space-x-4 align-middle">
+                    <a href="https://www.linkedin.com/in/oshadi-senevirathna-91b182244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
+                      <FaLinkedin className="w-6 h-6 text-gray-500" />
+                    </a>
+                    <a href="https://github.com/it21096884" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
+                      <FaGithub className="w-6 h-6 text-gray-500" />
+                    </a>
+                    <a href="mailto:neeranjala905@gmail.com" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
+                      <FaEnvelope className="w-6 h-6 text-gray-500" />
+                    </a>
+                    
+                  </div>
+                </CardContent>
+              </Card>
+      
+              </div>
             </div>
-            <div>
-              <label className="text-gray-700 dark:text-white">Email</label>
-              <Input type="email" placeholder="Your Email" />
-            </div>
-            <div>
-              <label className="text-gray-700 dark:text-white">Message</label>
-              <Textarea placeholder="Your Message" rows={4} />
-            </div>
-            <Button className="mt-4 text-white bg-purple-600 hover:bg-purple-700">
-              Send Message
-            </Button>
-          </div>
-        </form>
+   
       </section>
     </div>
   );
