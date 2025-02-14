@@ -9,103 +9,152 @@ import { Input } from './components/ui/input';
 import { Textarea } from './components/ui/textarea';
 import { Button } from './components/ui/button';
 
+const SkillCard = ({ skill }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const { darkMode } = useContext(ThemeContext);
 
+  return (
+    <div
+      className={`relative transition-all duration-300 ease-in-out ${
+        isHovered ? 'w-[250px]' : 'w-[180px]'
+      }`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className={`
+        h-[400px] p-6
+        transition-all duration-300 ease-in-out
+        flex flex-col
+        ${skill.isHighlighted ? 'bg-violet-400' : 'bg-transparent'}
+        ${darkMode ? 'dark:border dark:border-gray-700' : ''}
+      `}>
+        <h3 className={`
+          text-lg font-bold mb-8
+          ${skill.isHighlighted ? 'text-white' : 'text-violet-400'}
+        `}>
+          {skill.category}
+        </h3>
+        <ul className="mb-4 space-y-2">
+          {skill.tools.map((tool) => (
+            <li
+              key={tool}
+              className={`
+                transition-transform duration-300 font-semibold
+                ${skill.isHighlighted ? 'text-white' : 'text-violet-400'}
+                ${isHovered ? 'translate-x-2' : ''}
+              `}
+            >
+              {tool}
+            </li>
+          ))}
+        </ul>
+        {skill.description && (
+          <p
+            className={`text-sm mt-auto font-medium ${
+              skill.isHighlighted ? 'text-white/90' : 'text-violet-400'
+            } transition-opacity duration-300 ease-in-out ${
+              isHovered ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            {skill.description}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default function Home() {
   const { darkMode } = useContext(ThemeContext);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const skillsData = [
-    { 
-        category: "Full-Stack Development",
-        skills: ["React.js", "Node.js", "Express.js", "MongoDB", "SQL", "PHP"],
-        description: "Developing dynamic and scalable web applications with modern frameworks."
+  const skills = [
+    {
+      category: 'Front-end Development',
+      tools: ["React.js", "Next.js", "Tailwind CSS"],
+      isHighlighted: false,
+      description: 'I design and develop responsive web applications using React.js, Next.js, and Tailwind CSS, ensuring an intuitive and seamless user experience across devices.'
     },
-    { 
-        category: "Mobile Development",
-        skills: ["Flutter", "Java", "Android Studio", "Firebase", "React (Backend)"],
-        description: "Building cross-platform mobile applications with a robust backend infrastructure."
+    {
+      category: 'Back-end Development',
+      tools: ["Node.js", "Express.js", "PHP"],
+      isHighlighted: true,
+      description: 'I develop robust server-side applications using Node.js, Express.js, and PHP, enabling smooth and scalable back-end services.'
     },
-    { 
-        category: "Machine Learning & AI",
-        skills: ["CNN", "XGBoost", "TensorFlow", "PyTorch", "Scikit-learn"],
-        description: "Developing and training machine learning models for predictive analytics and AI applications."
+    {
+      category: 'Databases',
+      tools: ["MongoDB", "SQL"],
+      isHighlighted: false,
+      description: 'I work with databases like MongoDB and SQL to store, query, and manage data efficiently, supporting various application needs.'
     },
-    { 
-        category: "Software Engineering",
-        skills: ["Git", "GitHub", "MVC Architecture", "Agile Methodologies"],
-        description: "Applying software engineering principles for efficient and maintainable development."
+    {
+      category: "Mobile Development",
+      tools: ["Flutter", "Java", "Android Studio", "Firebase", "React (Backend)"],
+      isHighlighted: true,
+      description: "Building cross-platform mobile applications with a robust backend infrastructure."
+    },
+    {
+      category: "Machine Learning & AI",
+      tools: ["CNN", "XGBoost", "TensorFlow", "PyTorch", "Scikit-learn"],
+      isHighlighted: false,
+      description: "Developing and training machine learning models for predictive analytics and AI applications."
+    },
+    {
+      category: "Software Engineering",
+      tools: ["Git", "GitHub", "MVC Architecture", "Agile Methodologies"],
+      isHighlighted: true,
+      description: "Applying software engineering principles for efficient and maintainable development."
     }
-];
+  ];
 
-const projects = [
-  {
-      title: "Glow Up - Salon Management App",
-      description: "A Flutter mobile app with a React backend that enhances salon operations. Features include customer feedback analysis, hair damage identification, and AI-powered makeup recommendations.",
+  const projects = [
+    {
+        title: "Glow Up - Salon Management App",
+        description: "A Flutter mobile app with a React backend that enhances salon operations. Features include customer feedback analysis, hair damage identification, and AI-powered makeup recommendations.",
+        github: "https://github.com/NindukiAbeyrathne/Glowguide-R24-070",
+        website:"https://it21096884.github.io/GlowUp/",
+        research: "https://www.researchgate.net/publication/388428820_GlowUp_-_Enhancing_Salon_Experience_through_AI-Driven_Customer_Insights?_sg%5B0%5D=NUQtH3No6BrJ8RlQynQo3xAMw1iM-gJFYkOt0mO2cklFQ4yyfp76nsGRzLBa_Qr-moaR5t-0SJM5b-FRPVGwQElhoeMIrKPbMlbpfFxc.9G-bpVKrdEatjxhxIT3Zs125SliXpFlixrq6XPDwRhGQ2B18hFrZ0Uu5Qn5y1CwDgQNa4_W5WY8hWMqeYhfl_Q&_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6InB1YmxpY2F0aW9uIiwicGFnZSI6InByb2ZpbGUiLCJwcmV2aW91c1BhZ2UiOiJwcm9maWxlIiwicG9zaXRpb24iOiJwYWdlQ29udGVudCJ9fQ"
+    },
+    {
+      title: "Facial Diagnosis & Makeup Recommendation",
+      description: "An AI-powered model that detects facial deformities and recommends personalized makeup solutions. Published research in the IEEE-indexed ICAC conference.",
       github: "https://github.com/NindukiAbeyrathne/Glowguide-R24-070",
       website:"https://it21096884.github.io/GlowUp/",
-      research: "https://www.researchgate.net/publication/388428820_GlowUp_-_Enhancing_Salon_Experience_through_AI-Driven_Customer_Insights?_sg%5B0%5D=NUQtH3No6BrJ8RlQynQo3xAMw1iM-gJFYkOt0mO2cklFQ4yyfp76nsGRzLBa_Qr-moaR5t-0SJM5b-FRPVGwQElhoeMIrKPbMlbpfFxc.9G-bpVKrdEatjxhxIT3Zs125SliXpFlixrq6XPDwRhGQ2B18hFrZ0Uu5Qn5y1CwDgQNa4_W5WY8hWMqeYhfl_Q&_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6InB1YmxpY2F0aW9uIiwicGFnZSI6InByb2ZpbGUiLCJwcmV2aW91c1BhZ2UiOiJwcm9maWxlIiwicG9zaXRpb24iOiJwYWdlQ29udGVudCJ9fQ"
-  },
-  {
-    title: "Facial Diagnosis & Makeup Recommendation",
-    description: "An AI-powered model that detects facial deformities and recommends personalized makeup solutions. Published research in the IEEE-indexed ICAC conference.",
-    github: "https://github.com/NindukiAbeyrathne/Glowguide-R24-070",
-    website:"https://it21096884.github.io/GlowUp/",
-    research: "https://www.researchgate.net/publication/388441756_Facial_Diagnosis_Skin_Care_and_Makeup_Recommendation_Using_Advanced_Deep_Learning_Techniques?_sg%5B0%5D=NUQtH3No6BrJ8RlQynQo3xAMw1iM-gJFYkOt0mO2cklFQ4yyfp76nsGRzLBa_Qr-moaR5t-0SJM5b-FRPVGwQElhoeMIrKPbMlbpfFxc.9G-bpVKrdEatjxhxIT3Zs125SliXpFlixrq6XPDwRhGQ2B18hFrZ0Uu5Qn5y1CwDgQNa4_W5WY8hWMqeYhfl_Q&_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6InB1YmxpY2F0aW9uIiwicGFnZSI6InByb2ZpbGUiLCJwcmV2aW91c1BhZ2UiOiJwcm9maWxlIiwicG9zaXRpb24iOiJwYWdlQ29udGVudCJ9fQ"
-},
-  {
-      title: "Blush Me - E-commerce Platform",
-      description: "Developed an e-commerce platform for cosmetic products. Built a customer mobile app using Java (Android Studio) and an admin web app using React and .NET.",
-      github: "https://github.com/NimeshaPriyabandu/EAD-E-commerce_System"
-  },
-  {
-      title: "Online Craft Corner Tourist System",
-      description: "A full-stack web app using React, Node.js, and MongoDB, providing a marketplace for Sri Lankan craft businesses.",
-      github: "https://github.com/NindukiAbeyrathne/AF_Craft_Coner"
-  },
-  {
-      title: "Online Employee Management System",
-      description: "A Java-based system with MVC architecture for managing employee payments and records.",
-      github: "https://github.com/it21096884/Employee-Management-System"
-  },
-  {
-      title: "Online Vehicle Management System",
-      description: "Developed a vehicle management system using HTML, JavaScript, and SQL for handling rental and payment processes.", 
-      github: "https://github.com/it21096884/Online-Vehicle-Management-System"
-  }
-];
-
-
-      
-      
+      research: "https://www.researchgate.net/publication/388441756_Facial_Diagnosis_Skin_Care_and_Makeup_Recommendation_Using_Advanced_Deep_Learning_Techniques?_sg%5B0%5D=NUQtH3No6BrJ8RlQynQo3xAMw1iM-gJFYkOt0mO2cklFQ4yyfp76nsGRzLBa_Qr-moaR5t-0SJM5b-FRPVGwQElhoeMIrKPbMlbpfFxc.9G-bpVKrdEatjxhxIT3Zs125SliXpFlixrq6XPDwRhGQ2B18hFrZ0Uu5Qn5y1CwDgQNa4_W5WY8hWMqeYhfl_Q&_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6InB1YmxpY2F0aW9uIiwicGFnZSI6InByb2ZpbGUiLCJwcmV2aW91c1BhZ2UiOiJwcm9maWxlIiwicG9zaXRpb24iOiJwYWdlQ29udGVudCJ9fQ"
+    },
+    {
+        title: "Blush Me - E-commerce Platform",
+        description: "Developed an e-commerce platform for cosmetic products. Built a customer mobile app using Java (Android Studio) and an admin web app using React and .NET.",
+        github: "https://github.com/NimeshaPriyabandu/EAD-E-commerce_System"
+    },
+    {
+        title: "Online Craft Corner Tourist System",
+        description: "A full-stack web app using React, Node.js, and MongoDB, providing a marketplace for Sri Lankan craft businesses.",
+        github: "https://github.com/NindukiAbeyrathne/AF_Craft_Coner"
+    },
+    {
+        title: "Online Employee Management System",
+        description: "A Java-based system with MVC architecture for managing employee payments and records.",
+        github: "https://github.com/it21096884/Employee-Management-System"
+    },
+    {
+        title: "Online Vehicle Management System",
+        description: "Developed a vehicle management system using HTML, JavaScript, and SQL for handling rental and payment processes.", 
+        github: "https://github.com/it21096884/Online-Vehicle-Management-System"
+    }
+  ];
 
   return (
-      <div className={`relative w-full min-h-screen ${darkMode ? "dark" : ""}`}>
-        <Navbar />
-          
-        <video
-        key={darkMode} // This forces a re-render when darkMode changes
-        className="absolute top-0 left-0 w-full h-full object-cover z-[-1] min-w-full min-h-full"
-        style={{
-        objectFit: "cover",
-        width: "100vw",
-        height: "100vh",
-        }}
-        autoPlay
-        loop
-        muted
-        playsInline
-        src={darkMode ? "/nightt.mp4" : "/morrr.mp4"}
-        >
-        </video>
-      
+    <div className={`relative w-full min-h-screen ${darkMode ? "bg-[#15111b]" : "bg-white"}`}>
+      <Navbar />
+    
       {/* Hero Section */}
-      <section id = "home" className="flex flex-col items-center justify-center h-screen text-center px-4">
+      <section id="home" className="flex flex-col items-center justify-center h-screen px-4 text-center">
         <motion.p
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-sm text-gray-1000 uppercase tracking-wide"
+          className={`text-sm tracking-wide uppercase ${darkMode ? "text-gray-300" : "text-gray-800"}`}
         >
           Let's build something together
         </motion.p>
@@ -114,7 +163,7 @@ const projects = [
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="text-5xl font-bold mt-2"
+          className={`mt-2 text-5xl font-bold ${darkMode ? "text-white" : "text-gray-800"}`}
         >
           Hi, I'm <span className="text-purple-600">Oshadi</span>
         </motion.h1>
@@ -123,7 +172,7 @@ const projects = [
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="text-3xl font-semibold text-gray-1000 mt-2"
+          className={`mt-2 text-3xl font-semibold ${darkMode ? "text-gray-300" : "text-gray-800"}`}
         >
           A Student of Computer Science
         </motion.h2><br/>
@@ -132,11 +181,10 @@ const projects = [
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.7 }}
-          className="text-xl text-gray-1000 mt-6 max-w-3xl font-medium text-center"
+          className={`max-w-3xl mt-6 text-xl font-medium text-center ${darkMode ? "text-gray-300" : "text-gray-800"}`}
         >
-          I am a Computer Science student, graguated from SLIIT as a Software Engineer. I'm ready to explore and contribute in various domains. 
-          Whether it's software development, data analysis, or artificial intelligence, I am eager 
-          to tackle new challenges and make a positive impact.
+          I am a Computer Science student, graduated from SLIIT as a Software Engineer. I'm ready to explore and contribute in various domains. 
+          Whether it's software development, data analysis, or artificial intelligence, I am eager to tackle new challenges and make a positive impact.
         </motion.p>
 
         {/* Social Icons */}
@@ -144,179 +192,118 @@ const projects = [
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="flex space-x-6 mt-6"
+          className="flex mt-6 space-x-6"
         >
-          <a href="https://www.linkedin.com/in/oshadi-senevirathna-91b182244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white-500   transition">
-            <FaLinkedin className="text-gray-500  text-2xl" />
+          <a href="https://www.linkedin.com/in/oshadi-senevirathna-91b182244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" className="p-3 transition bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white-500">
+            <FaLinkedin className="text-2xl text-gray-500" />
           </a>
-          <a href="https://github.com/it21096884" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white transition">
-            <FaGithub className="text-gray-500  text-2xl" />
+          <a href="https://github.com/NindukiAbeyrathne" target="_blank" rel="noopener noreferrer" className="p-3 transition bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white-500">
+            <FaGithub className="text-2xl text-gray-500" />
           </a>
-          <a href="mailto:neeranjala905@gmail.com" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white transition">
-            <FaEnvelope className="text-gray-500  text-2xl" />
+          <a href="mailto:oshadi@gmail.com" className="p-3 transition bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white-500">
+            <FaEnvelope className="text-2xl text-gray-500" />
           </a>
-          
+          <a href="https://discord.com/users/9811" className="p-3 transition bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white-500">
+            <FaDiscord className="text-2xl text-gray-500" />
+          </a>
         </motion.div>
       </section>
-      {/* <Aboutme /> */}
-    
-        
-      <div id = "about" className="flex flex-row items-center justify-center h-screen text-center px-10">
-              {/* Left Section - About Text */}
-              <div className="md:w-1/2 text-center md:text-left">
-                <h3 className="text-purple-600 text-lg font-semibold">ABOUT</h3>
-                <h1 className="text-4xl font-bold mt-2">Who I Am</h1>
-                <p className="text-gray-1000 mt-6 max-w-3xl text-xl text-left">
-                Hello! I'm Oshadi, a passionate and driven Software Engineering student with hands-on experience in full-stack development, mobile applications, and machine learning. I enjoy exploring new technologies and leveraging them to create innovative solutions that solve real-world problems.
 
-With a strong foundation in React, Flutter, .NET, Node.js, and MongoDB, I have developed and deployed full-stack applications that enhance user experiences. <br/><br/>My expertise extends to machine learning and deep learning, where I have worked with CNN, XGBoost, and TensorFlow to build AI-driven models, including brain tumor classification and personalized recommendation systems.
-
-I thrive in collaborative environments, having worked on multiple projects where I applied Agile methodologies, Git version control, and MVC architecture to deliver efficient and scalable software. My research contributions in AI-powered facial diagnosis and salon management have been published in IEEE-indexed conferences, showcasing my ability to merge academic research with practical applications.
-                </p>
-                <p className="text-gray-1000 mt-6 text-xl max-w-3xl text-left">
-                  Thank you for visiting my portfolio website. Feel free to explore my projects, and please don't 
-                  hesitate to reach out if you have any questions or opportunities for collaboration!
-                </p>
-              </div>
-        
-              {/* Right Section - Profile Image */}
-              <div className="md:w-1/3 mt-6 md:mt-0 md:ml-12">
-                <img
-                  src="/prof.jpeg"
-                  alt="Profile"
-                  className="rounded-2xl shadow-lg"
-                />
-              </div>
-      </div>
+      {/* Skills Section */}
+      <section id="skills" className="py-16 dark:bg-gray-800">
+        <div className="px-6 mx-auto max-w-7xl">
+          <h2 className="mb-2 text-violet-500 font">SKILLS</h2>
+          <h1 className="mb-12 text-4xl font-bold text-gray-900 dark:text-white">What I can do</h1>
           
-      <div id="skills" className="flex flex-col items-center justify-center min-h-screen px-10 bg-white-100 ">
-      <h2 className="text-purple-600 text-xl font-semibold uppercase tracking-wide">Skills</h2>
-      <h1 className="text-4xl font-bold text-gray-800 dark:text-white mt-2 mb-6">What I Can Do</h1>
-
-      <div className="grid grid-rows-1 sm:grid-cols-2 md:grid-cols-3 gap-10 w-full max-w-7xl text-center">
-        {skillsData.map((skill, index) => (
-          <div
-            key={index}
-            className="p-6 bg-white dark:bg-white-800 rounded-xl shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 border border-gray-200 dark:border-gray-700"
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <h3 className="text-2xl font-semibold text-gray-700 dark:text-black">{skill.category}</h3>
-            <div className="mt-3 text-gray-700 dark:text-black-300">
-              {hoveredIndex === index ? (
-                <p className="text-lg">{skill.description}</p>
-              ) : (
-                <ul className="flex flex-wrap justify-center gap-2 mt-3">
-                  {skill.skills.map((item, i) => (
-                    <li key={i} className="text-lg bg-purple-500 text-white px-4 py-2 rounded-lg shadow-md transition hover:bg-purple-600">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-<section id="projects" className="flex flex-row items-center justify-center min-h-screen text-center px-10 py-16">
-  <div className="container mx-auto px-6">
-    <h2 className="text-4xl font-bold text-center text-white-900 mb-10">What I've Built</h2>
-    <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-      {projects.map((project, index) => (
-        <div
-          key={index}
-          className="p-6 rounded-xl shadow-lg bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl"
-        >
-          <h3 className="text-2xl font-semibold text-gray-800">{project.title}</h3>
-          <p className="mt-2 text-gray-600 text-lg">{project.description}</p>
-
-          {/* Links Section */}
-          <div className="mt-4 flex space-x-4">
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300"
-              >
-                GitHub
-              </a>
-            )}
-            {project.research && (
-              <a
-                href={project.research}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300"
-              >
-                Research Paper Published In IEEE
-              </a>
-            )}
-            {project.website && (
-              <a
-                href={project.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300"
-              >
-                website
-              </a>
-            )}
+          <div className="flex flex-wrap justify-center gap-4">
+            {skills.map((skill) => (
+              <SkillCard
+                key={skill.category}
+                skill={skill}
+              />
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
+      {/* Projects Section */}
+      <section id="projects" className="py-16 bg-white dark:bg-gray-800">
+        <div className="px-6 mx-auto max-w-7xl">
+          <h2 className="mb-12 text-3xl font-semibold text-center text-gray-800 dark:text-white">Projects</h2>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, idx) => (
+              <div
+                key={idx}
+                className="relative p-6 transition-all bg-gray-100 shadow-lg dark:bg-gray-700 rounded-xl hover:shadow-xl"
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{project.title}</h3>
+                <p className="mt-4 text-gray-600 dark:text-gray-300">{project.description}</p>
 
-
-
-    <div id = "contact" className="flex flex-col items-center justify-center h-screen text-center px-10">
-            <h1 className="text-4xl font-bold text-center mb-8">Get In Touch</h1>
-            <div className="grid grid-cols-3 md:grid-cols-1 gap-8 max-w-4xl mx-auto align-middle justify-center">
-              {/* Left Card */}
-              <Card className="shadow-lg animate-fade-in-up">
-                <CardContent className="p-6">
-                  <img 
-                    src="./cont.jpg" 
-                    alt="Business Card" 
-                    className="rounded-lg mb-4 w-full"
-                  />
-                  <h2 className="text-2xl font-bold mb-2 text-gray-600">Oshadi Senevirathna</h2>
-                  <p className="text-gray-600 mb-4">
-                  I'm looking forward to connecting with like-minded professionals and exploring opportunities to make an impact. Whether it’s about collaborating on innovative projects, discussing new technologies, or sharing ideas, I’d love to hear from you
-                  </p>
-                  <p className="text-black-bold mb-4">I am open to work.</p>
-                  <h3 className="text-lg font-semibold mb-2 text-gray-600">Connect with me</h3>
-                  <div className="flex space-x-4 align-middle justify-center">
-                    <a href="https://www.linkedin.com/in/oshadi-senevirathna-91b182244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                      <FaLinkedin className="text-gray-500 h-6 w-6" />
+                <div className="flex mt-4 space-x-4">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-600 hover:text-purple-800"
+                    >
+                      GitHub
                     </a>
-                    <a href="https://github.com/it21096884" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                      <FaGithub className="text-gray-500 h-6 w-6" />
+                  )}
+                  {project.website && (
+                    <a
+                      href={project.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-600 hover:text-purple-800"
+                    >
+                      Website
                     </a>
-                    <a href="mailto:neeranjala905@gmail.com" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                      <FaEnvelope className="text-gray-500 h-6 w-6" />
+                  )}
+                  {project.research && (
+                    <a
+                      href={project.research}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-600 hover:text-purple-800"
+                    >
+                      Research
                     </a>
-                    
-                  </div>
-                </CardContent>
-              </Card>
-      
-             
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="flex flex-col items-center justify-center min-h-screen px-10 py-16 dark:bg-gray-800">
+        <h2 className="text-xl font-semibold tracking-wide text-purple-600 uppercase">Contact</h2>
+        <h1 className="mt-2 mb-6 text-4xl font-bold text-gray-800 dark:text-white">Let's Get in Touch</h1>
+
+        <form className="w-full max-w-2xl p-8 bg-white shadow-lg rounded-xl dark:bg-gray-700">
+          <div className="flex flex-col space-y-4">
+            <div>
+              <label className="text-gray-700 dark:text-white">Name</label>
+              <Input type="text" placeholder="Your Name" />
             </div>
+            <div>
+              <label className="text-gray-700 dark:text-white">Email</label>
+              <Input type="email" placeholder="Your Email" />
+            </div>
+            <div>
+              <label className="text-gray-700 dark:text-white">Message</label>
+              <Textarea placeholder="Your Message" rows={4} />
+            </div>
+            <Button className="mt-4 text-white bg-purple-600 hover:bg-purple-700">
+              Send Message
+            </Button>
+          </div>
+        </form>
+      </section>
     </div>
-
-      </div>
-
-        
-      
-        
-      
-      
-    
   );
 }
