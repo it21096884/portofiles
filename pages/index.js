@@ -209,6 +209,34 @@ export default function Home() {
         </motion.div>
       </section>
 
+      <div id = "about" className="flex flex-row items-center justify-center h-screen px-10 text-center">
+              {/* Left Section - About Text */}
+              <div className="text-center md:w-1/2 md:text-left">
+                <h3 className="text-lg font-semibold text-purple-600">ABOUT</h3>
+                <h1 className="mt-2 text-4xl font-bold">Who I Am</h1>
+                <p className="max-w-3xl mt-6 text-left text-l text-gray-1000">
+                Hello! I'm Oshadi, a passionate and driven Software Engineering student with hands-on experience in full-stack development, mobile applications, and machine learning. I enjoy exploring new technologies and leveraging them to create innovative solutions that solve real-world problems.
+
+With a strong foundation in React, Flutter, .NET, Node.js, and MongoDB, I have developed and deployed full-stack applications that enhance user experiences. <br/><br/>My expertise extends to machine learning and deep learning, where I have worked with CNN, XGBoost, and TensorFlow to build AI-driven models, including brain tumor classification and personalized recommendation systems.
+
+I thrive in collaborative environments, having worked on multiple projects where I applied Agile methodologies, Git version control, and MVC architecture to deliver efficient and scalable software. My research contributions in AI-powered facial diagnosis and salon management have been published in IEEE-indexed conferences, showcasing my ability to merge academic research with practical applications.
+                </p>
+                <p className="max-w-3xl mt-6 text-left text-l text-gray-1000">
+                  Thank you for visiting my portfolio website. Feel free to explore my projects, and please don't 
+                  hesitate to reach out if you have any questions or opportunities for collaboration!
+                </p>
+              </div>
+        
+              {/* Right Section - Profile Image */}
+              <div className="mt-8 md:w-1/3 md:mt-0 md:ml-12">
+                <img
+                  src="/prof.jpeg"
+                  alt="Profile"
+                  className="shadow-lg rounded-2xl"
+                />
+              </div>
+      </div>
+
       {/* Skills Section */}
       <section id="skills" className="py-16 dark:bg-gray-800">
         <div className="px-6 mx-auto max-w-7xl">
