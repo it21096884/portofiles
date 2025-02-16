@@ -9,6 +9,7 @@ import { Card, CardContent } from './components/ui/card';
 import { Input } from './components/ui/input';
 import { Textarea } from './components/ui/textarea';
 import { Button } from './components/ui/button';
+import { ThemeProvider, useTheme } from "next-themes";
 
 const CloudAnimation = () => {
   const clouds = ["/cloud-8107.png", "/cloud-8120.png"];
@@ -17,21 +18,20 @@ const CloudAnimation = () => {
 
   useEffect(() => {
     const generateClouds = () =>
-      Array.from({ length: 6 }).map((_, index) => ({
-        width: Math.random() * 1000 + 800,
-        height: Math.random() * 600 + 400,
-        top: Math.random() * 50,
-        left: -100,
+      Array.from({ length: 9 }).map((_, index) => ({
+        width: Math.random() * 500 + 700,
+        height: Math.random() * 300 + 500,
+        top: Math.random() * 80,
+        left: -150,
         image: clouds[Math.floor(Math.random() * clouds.length)],
-        delay: 30,
-        speed: Math.random() * 10 + 10,
+        speed: Math.random() * 5 + 10,
       }));
 
     setCloudData(generateClouds());
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
       {cloudData.map((cloud, i) => (
         <motion.div
           key={i}
@@ -42,13 +42,12 @@ const CloudAnimation = () => {
             backgroundRepeat: "no-repeat",
             width: `${cloud.width}px`,
             height: `${cloud.height}px`,
-            top: `${cloud.top}vh`,
-            left: `${cloud.left}vw`,
-            opacity: 0.4,
-            zIndex: 0
+            top: `${cloud.top}%`,
+            left: `${cloud.left}%`,
+            opacity: 0.9,
           }}
           animate={{
-            x: ["0vw", "300vw"],
+            x: ["0%", "500%"],
           }}
           transition={{
             repeat: Infinity,
@@ -60,6 +59,33 @@ const CloudAnimation = () => {
     </div>
   );
 };
+
+const RainyAnimation = () => (
+  <div className="fixed inset-0 pointer-events-none">
+    {[...Array(120)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute rounded-full"
+        style={{
+          background: "linear-gradient(180deg, #5a5a5a, #303030)",
+          width: 2,
+          height: 12,
+          top: `${Math.random() * 100}vh`,
+          left: `${Math.random() * 100}vw`,
+        }}
+        animate={{
+          y: ["-10vh", "110vh"],
+          x: ["-1vw", "1vw"],
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: Math.random() * 1 + 0.7,
+          delay: Math.random() * 1,
+        }}
+      />
+    ))}
+  </div>
+);
 
 const SkillCard = ({ skill }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -77,12 +103,12 @@ const SkillCard = ({ skill }) => {
         h-[400px] p-6
         transition-all duration-300 ease-in-out
         flex flex-col
-        ${skill.isHighlighted ? 'bg-violet-400' : 'bg-transparent'}
+        ${skill.isHighlighted ? (darkMode ? 'bg-[#38534f]' : 'bg-violet-400') : 'bg-transparent'}
         ${darkMode ? 'dark:border dark:border-gray-700' : ''}
       `}>
         <h3 className={`
           text-lg font-bold mb-8
-          ${skill.isHighlighted ? 'text-white' : 'text-violet-400'}
+          ${skill.isHighlighted ? 'text-white' : (darkMode ? 'text-[#38534f]' : 'text-violet-400')}
         `}>
           {skill.category}
         </h3>
@@ -92,7 +118,7 @@ const SkillCard = ({ skill }) => {
               key={tool}
               className={`
                 transition-transform duration-300 font-semibold
-                ${skill.isHighlighted ? 'text-white' : 'text-violet-400'}
+                ${skill.isHighlighted ? 'text-white' : (darkMode ? 'text-[#38534f]' : 'text-violet-400')}
                 ${isHovered ? 'translate-x-2' : ''}
               `}
             >
@@ -103,7 +129,7 @@ const SkillCard = ({ skill }) => {
         {skill.description && (
           <p
             className={`text-sm mt-auto font-medium ${
-              skill.isHighlighted ? 'text-white/90' : 'text-violet-400'
+              skill.isHighlighted ? 'text-white/90' : (darkMode ? 'text-[#38534f]' : 'text-violet-400')
             } transition-opacity duration-300 ease-in-out ${
               isHovered ? 'opacity-100' : 'opacity-0'
             }`}
@@ -116,9 +142,17 @@ const SkillCard = ({ skill }) => {
   );
 };
 
+
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
   const { darkMode } = useContext(ThemeContext);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
+
 
   const skills = [
     {
@@ -197,11 +231,16 @@ export default function Home() {
   ];
 
   return (
-    <div className={`relative w-full min-h-screen ${darkMode ? "bg-[#15111b]" : "bg-white"}`}>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <div className={`relative w-full min-h-screen ${darkMode ? "bg-[#15111b]" : "bg-white"}`}>
+        {!darkMode && <CloudAnimation />}
+        {darkMode && <RainyAnimation />}
       <Navbar />
+      
     
       {/* Hero Section */}
       <section id="home" className="flex flex-col items-center justify-center h-screen px-4 text-center">
+      
         <motion.p
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -217,7 +256,7 @@ export default function Home() {
           transition={{ duration: 1, delay: 0.3 }}
           className={`mt-2 text-5xl font-bold ${darkMode ? "text-white" : "text-gray-800"}`}
         >
-          Hi, I'm <span className="text-purple-600">Oshadi</span>
+          Hi, I'm <span className={darkMode ? "text-[#38534f]" : "text-purple-600"}>Oshadi</span>
         </motion.h1>
 
         <motion.h2
@@ -261,19 +300,19 @@ export default function Home() {
         </motion.div>
       </section>
 
-
-      {/* Who I am */}
-      <div id = "about" className="flex flex-row items-center justify-center h-screen px-10 text-center">
+       {/* Who I am */}
+       <div id = "about" className="flex flex-row items-center justify-center h-screen px-10 text-center">
+       
               {/* Left Section - About Text */}
               <div className="text-center md:w-1/2 md:text-left">
-                <h3 className="text-lg font-semibold text-purple-600">ABOUT</h3>
+              <h3 className={`text-lg font-semibold ${darkMode ? "text-[#38534f]" : "text-purple-600"}`}>ABOUT</h3>
                 <h1 className="mt-2 text-4xl font-bold">Who I Am</h1>
                 <p className="max-w-3xl mt-6 text-left text-l text-gray-1000">
                 Hello! I'm Oshadi, a passionate and driven Software Engineering student with hands-on experience in full-stack development, mobile applications, and machine learning. I enjoy exploring new technologies and leveraging them to create innovative solutions that solve real-world problems.
 
-With a strong foundation in React, Flutter, .NET, Node.js, and MongoDB, I have developed and deployed full-stack applications that enhance user experiences. <br/><br/>My expertise extends to machine learning and deep learning, where I have worked with CNN, XGBoost, and TensorFlow to build AI-driven models, including brain tumor classification and personalized recommendation systems.
+              With a strong foundation in React, Flutter, .NET, Node.js, and MongoDB, I have developed and deployed full-stack applications that enhance user experiences. <br/><br/>My expertise extends to machine learning and deep learning, where I have worked with CNN, XGBoost, and TensorFlow to build AI-driven models, including brain tumor classification and personalized recommendation systems.
 
-I thrive in collaborative environments, having worked on multiple projects where I applied Agile methodologies, Git version control, and MVC architecture to deliver efficient and scalable software. My research contributions in AI-powered facial diagnosis and salon management have been published in IEEE-indexed conferences, showcasing my ability to merge academic research with practical applications.
+                    I thrive in collaborative environments, having worked on multiple projects where I applied Agile methodologies, Git version control, and MVC architecture to deliver efficient and scalable software. My research contributions in AI-powered facial diagnosis and salon management have been published in IEEE-indexed conferences, showcasing my ability to merge academic research with practical applications.
                 </p>
                 <p className="max-w-3xl mt-6 text-left text-l text-gray-1000">
                   Thank you for visiting my portfolio website. Feel free to explore my projects, and please don't 
@@ -292,9 +331,10 @@ I thrive in collaborative environments, having worked on multiple projects where
       </div>
 
       {/* Skills Section */}
-      <section id="skills" className="py-16 dark:bg-gray-800">
+      <section id="skills" className="py-16">
+      
         <div className="px-6 mx-auto max-w-7xl">
-          <h2 className="mb-2 text-violet-500 font">SKILLS</h2>
+        <h2 className={`mb-2 ${darkMode ? "text-[#38534f]" : "text-violet-500"} font`}>SKILLS</h2>
           <h1 className="mb-12 text-4xl font-bold text-gray-900 dark:text-white">What I can do</h1>
           
           <div className="flex flex-wrap justify-center gap-4">
@@ -309,60 +349,62 @@ I thrive in collaborative environments, having worked on multiple projects where
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 bg-white dark:bg-gray-800">
-        <div className="px-6 mx-auto max-w-7xl">
-          <h2 className="mb-12 text-3xl font-semibold text-center text-gray-800 dark:text-white">Projects</h2>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, idx) => (
-              <div
-                key={idx}
-                className="relative p-6 transition-all bg-gray-100 shadow-lg dark:bg-gray-700 rounded-xl hover:shadow-xl"
-                onMouseEnter={() => setHoveredIndex(idx)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{project.title}</h3>
-                <p className="mt-4 text-gray-600 dark:text-gray-300">{project.description}</p>
+<section id="projects" className="py-16">
+  <div className="px-6 mx-auto max-w-7xl">
+    <h2 className="mb-12 text-3xl font-semibold text-center text-gray-800 dark:text-white">Projects</h2>
+    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {projects.map((project, idx) => (
+        <div
+          key={idx}
+          className="relative p-6 transition-all bg-gray-100 border-none dark:bg-gray-700 rounded-xl hover:shadow-xl"
+          onMouseEnter={() => setHoveredIndex(idx)}
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{project.title}</h3>
+          <p className="mt-4 text-gray-600 dark:text-gray-300">{project.description}</p>
 
-                <div className="flex mt-4 space-x-4">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-purple-600 hover:text-purple-800"
-                    >
-                      GitHub
-                    </a>
-                  )}
-                  {project.website && (
-                    <a
-                      href={project.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-purple-600 hover:text-purple-800"
-                    >
-                      Website
-                    </a>
-                  )}
-                  {project.research && (
-                    <a
-                      href={project.research}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-purple-600 hover:text-purple-800"
-                    >
-                      Research
-                    </a>
-                  )}
-                </div>
-              </div>
-            ))}
+          <div className="flex mt-4 space-x-4">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={darkMode ? "text-[#2cffd8] hover:text-[#38534f]" : "text-purple-600 hover:text-purple-800"}
+              >
+                GitHub
+              </a>
+            )}
+            {project.website && (
+              <a
+                href={project.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={darkMode ? "text-[#2cffd8] hover:text-[#38534f]" : "text-purple-600 hover:text-purple-800"}
+              >
+                Website
+              </a>
+            )}
+            {project.research && (
+              <a
+                href={project.research}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={darkMode ? "text-[#2cffd8] hover:text-[#38534f]" : "text-purple-600 hover:text-purple-800"}
+              >
+                Research
+              </a>
+            )}
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Contact Section */}
-      <section id="contact" className="flex flex-col items-center justify-center min-h-screen px-10 py-16 dark:bg-gray-800">
+      <section id="contact" className="flex flex-col items-center justify-center min-h-screen px-10 py-16 ">
+      
       <div id = "contact" className="flex flex-col items-center justify-center h-screen px-10 text-center">
             <h1 className="mb-8 text-4xl font-bold text-center">Get In Touch</h1>
             <div className="grid justify-center max-w-4xl grid-cols-3 gap-8 mx-auto align-middle md:grid-cols-1">
@@ -400,5 +442,6 @@ I thrive in collaborative environments, having worked on multiple projects where
    
       </section>
     </div>
+    </ThemeProvider>
   );
 }
