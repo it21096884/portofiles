@@ -15,43 +15,45 @@ export default function Home() {
   const { darkMode } = useContext(ThemeContext);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const skillsData = [
-    { 
-        category: "Full-Stack Development",
-        skills: ["React.js", "Next.js", "Node.js", "Express.js", "Spring Boot", "MongoDB", "SQL", "Tailwind CSS"],
-        description: "Building modern web applications with scalable backend solutions."
+  const skillData = [
+    
+    {
+      category: 'Data Analytics',
+      tools: ["Pandas", "NumPy", "Matplotlib", "Seaborn"],
+      isHighlighted: false,
+      description: 'I use tools like Pandas, NumPy, Matplotlib, and Seaborn to visualize and analyze complex datasets, providing actionable insights for data-driven decision-making.'
     },
-    { 
-        category: "Mobile Development",
-        skills: ["Flutter", "Java", "Android Studio", "Firebase"],
-        description: "Developing cross-platform mobile applications with seamless user experience."
+    {
+      category: 'AI ML Development',
+      tools: ['PyTorch', 'Tensorflow', 'Scikit-Learn', "Langchain"],
+      isHighlighted: true,
+      description: "I build and deploy predictive models using PyTorch, TensorFlow, Scikit-Learn, and Langchain for working with LLMs to solve real-world problems."
     },
-    { 
-        category: "Machine Learning & AI",
-        skills: ["TensorFlow", "Scikit-learn", "PyTorch", "CNN", "ANN", "DQN", "Reinforcement Learning"],
-        description: "Training and deploying AI models for image classification, NLP, and predictive analytics."
+    {
+      category: 'Front-end Development',
+      tools: ["React.js", "Next.js", "Tailwind CSS"],
+      isHighlighted: false,
+      description: 'I design and develop responsive web applications using React.js, Next.js, and Tailwind CSS, ensuring an intuitive and seamless user experience across devices.'
     },
-    { 
-        category: "Data Science & Analytics",
-        skills: ["Pandas", "NumPy", "Matplotlib", "Seaborn"],
-        description: "Performing data analysis, visualization, and statistical modeling."
+    {
+      category: 'Back-end Development',
+      tools: ["Node.js", "Express.js", "Spring Boot"],
+      isHighlighted: true,
+      description: 'I develop robust server-side applications using Node.js, Express.js, and Spring Boot, enabling smooth and scalable back-end services.'
     },
-    { 
-        category: "Software Engineering & DevOps",
-        skills: ["Git", "CI/CD", "Docker", "Agile Development", "Jira", "MVC Architecture"],
-        description: "Ensuring robust software development and deployment pipelines."
+    {
+      category: 'Databases',
+      tools: ["MongoDB", "SQL", "Neo4j"],
+      isHighlighted: false,
+      description: 'I work with databases like MongoDB, SQL, and Neo4j to store, query, and manage data efficiently, supporting various application needs.'
     },
-    { 
-        category: "Cloud & Deployment",
-        skills: ["Hugging Face Space", "Streamlit"],
-        description: "Deploying AI models and applications to cloud-based environments."
-    },
-    { 
-        category: "UI/UX & Tools",
-        skills: ["Figma", "Photoshop", "Postman"],
-        description: "Designing user interfaces and testing APIs for software applications."
+    {
+      category: 'Tools',
+      tools: ['Git', 'Jira', 'Figma', 'Photoshop', 'Postman'],
+      isHighlighted: true,
+      description: 'I use tools like Git for version control, Jira for project management, and Postman for API testing, while also incorporating Figma and Photoshop for UI/UX design.'
     }
-];
+  ];
 
 
 const projects = [
@@ -134,12 +136,12 @@ const projects = [
       <Navbar />
       
       {/* Hero Section */}
-      <section id = "home" className="flex flex-col items-center justify-center h-screen text-center px-4">
+      <section id = "home" className="flex flex-col items-center justify-center h-screen px-4 text-center">
         <motion.p
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-sm text-gray-1000 uppercase tracking-wide"
+          className="text-sm tracking-wide uppercase text-gray-1000"
         >
           Let's build something together
         </motion.p>
@@ -148,7 +150,7 @@ const projects = [
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="text-5xl font-bold mt-2"
+          className="mt-2 text-5xl font-bold"
         >
           Hi, I'm <span className="text-purple-600">Dinidu</span>
         </motion.h1>
@@ -157,7 +159,7 @@ const projects = [
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="text-3xl font-semibold text-gray-1000 mt-2"
+          className="mt-2 text-3xl font-semibold text-gray-1000"
         >
           A Student of Computer Science
         </motion.h2><br/>
@@ -166,7 +168,7 @@ const projects = [
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.7 }}
-          className="text-xl text-black mt-6 max-w-4xl font-medium text-center"
+          className="max-w-4xl mt-6 text-xl font-medium text-center text-black"
         >
  I'm a Computer Science undergrad at the University of Ruhuna, passionate about software engineering and eager to delve into diverse domains like software development, data analysis, and artificial intelligence. I'm enthusiastic about taking on new challenges and making a meaningful impact through my work. Let's connect and explore the exciting possibilities ahead
         </motion.p>
@@ -176,16 +178,16 @@ const projects = [
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="flex space-x-6 mt-6"
+          className="flex mt-6 space-x-6"
         >
-          <a href="http://www.linkedin.com/in/dinidu-lochana-0a7b07241" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white-500   transition">
-            <FaLinkedin className="text-gray-500  text-2xl" />
+          <a href="http://www.linkedin.com/in/dinidu-lochana-0a7b07241" target="_blank" rel="noopener noreferrer" className="p-3 transition bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white-500">
+            <FaLinkedin className="text-2xl text-gray-500" />
           </a>
-          <a href="https://github.com/Dinidu-Lochana" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white transition">
-            <FaGithub className="text-gray-500  text-2xl" />
+          <a href="https://github.com/Dinidu-Lochana" target="_blank" rel="noopener noreferrer" className="p-3 transition bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white">
+            <FaGithub className="text-2xl text-gray-500" />
           </a>
-          <a href="mailto:24.dinidulochana@gmail.com" className="p-3 bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white transition">
-            <FaEnvelope className="text-gray-500  text-2xl" />
+          <a href="mailto:24.dinidulochana@gmail.com" className="p-3 transition bg-white rounded-full shadow-lg hover:bg-purple-300 hover:text-white">
+            <FaEnvelope className="text-2xl text-gray-500" />
           </a>
           
         </motion.div>
@@ -193,43 +195,43 @@ const projects = [
       {/* <Aboutme /> */}
     
         
-      <div id = "about" className="flex flex-row items-center justify-center h-screen text-center px-10">
+      <div id = "about" className="flex flex-row items-center justify-center h-screen px-10 text-center">
               {/* Left Section - About Text */}
-              <div className="md:w-1/2 text-center md:text-left">
-                <h3 className="text-purple-600 text-lg font-semibold">ABOUT</h3>
-                <h1 className="text-4xl font-bold mt-2">Who I Am</h1>
-                <p className="text-gray-1000 mt-6 max-w-3xl text-xl text-left">
+              <div className="text-center md:w-1/2 md:text-left">
+                <h3 className="text-lg font-semibold text-purple-600">ABOUT</h3>
+                <h1 className="mt-2 text-4xl font-bold">Who I Am</h1>
+                <p className="max-w-3xl mt-6 text-xl text-left text-gray-1000">
                 Hello! I'm Dinidu Lochana Bandara, a Computer Engineering undergraduate at the University of Ruhuna with a strong passion for software development, machine learning, and artificial intelligence. I have hands-on experience in full-stack development, mobile application development, and AI-driven solutions.
 
 I have worked extensively with Next.js, Flutter, Node.js, Express, and MongoDB to develop scalable web and mobile applications.<br/><br/> My expertise in machine learning includes working with CNN, XGBoost, TensorFlow, and reinforcement learning to build AI-powered models for healthcare, fraud detection, and predictive analytics.
 
 Beyond development, I am experienced in Agile methodologies, Git version control, and cloud deployment. My projects range from AI-driven chatbots and medical diagnosis tools to automated bus ticket booking systems and GPA prediction models. I am always eager to explore new technologies and contribute to impactful software solutions.
                 </p>
-                <p className="text-gray-1000 mt-6 text-xl max-w-3xl text-left">
+                <p className="max-w-3xl mt-6 text-xl text-left text-gray-1000">
                   Thank you for visiting my portfolio website. Feel free to explore my projects, and please don't 
                   hesitate to reach out if you have any questions or opportunities for collaboration!
                 </p>
               </div>
         
               {/* Right Section - Profile Image */}
-              <div className="md:w-1/3 mt-6 md:mt-0 md:ml-12">
+              <div className="mt-6 md:w-1/3 md:mt-0 md:ml-12">
                 <img
                   src="/dinidu_prof.jpeg"
                   alt="Profile"
-                  className="rounded-2xl shadow-lg"
+                  className="shadow-lg rounded-2xl"
                 />
               </div>
       </div>
           
       <div id="skills" className="flex flex-col items-center justify-center min-h-screen px-10 bg-white-100 ">
-      <h2 className="text-purple-600 text-xl font-semibold uppercase tracking-wide">Skills</h2>
-      <h1 className="text-4xl font-bold text-gray-800 dark:text-white mt-2 mb-6">What I Can Do</h1>
+      <h2 className="text-xl font-semibold tracking-wide text-purple-600 uppercase">Skills</h2>
+      <h1 className="mt-2 mb-6 text-4xl font-bold text-gray-800 dark:text-white">What I Can Do</h1>
 
-      <div className="grid grid-rows-1 sm:grid-cols-2 md:grid-cols-3 gap-10 w-full max-w-7xl text-center">
+      <div className="grid w-full grid-rows-1 gap-10 text-center sm:grid-cols-2 md:grid-cols-3 max-w-7xl">
         {skillsData.map((skill, index) => (
           <div
             key={index}
-            className="p-6 bg-white dark:bg-white-800 rounded-xl shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 border border-gray-200 dark:border-gray-700"
+            className="p-6 transition duration-300 transform bg-white border border-gray-200 shadow-lg dark:bg-white-800 rounded-xl hover:shadow-xl hover:scale-105 dark:border-gray-700"
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
@@ -240,7 +242,7 @@ Beyond development, I am experienced in Agile methodologies, Git version control
               ) : (
                 <ul className="flex flex-wrap justify-center gap-2 mt-3">
                   {skill.skills.map((item, i) => (
-                    <li key={i} className="text-lg bg-purple-500 text-white px-4 py-2 rounded-lg shadow-md transition hover:bg-purple-600">
+                    <li key={i} className="px-4 py-2 text-lg text-white transition bg-purple-500 rounded-lg shadow-md hover:bg-purple-600">
                       {item}
                     </li>
                   ))}
@@ -252,26 +254,26 @@ Beyond development, I am experienced in Agile methodologies, Git version control
       </div>
     </div>
 
-<section id="projects" className="flex flex-row items-center justify-center min-h-screen text-center px-10 py-16">
-  <div className="container mx-auto px-6">
-    <h2 className="text-4xl font-bold text-center text-white-900 mb-10">What I've Built</h2>
+<section id="projects" className="flex flex-row items-center justify-center min-h-screen px-10 py-16 text-center">
+  <div className="container px-6 mx-auto">
+    <h2 className="mb-10 text-4xl font-bold text-center text-white-900">What I've Built</h2>
     <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
       {projects.map((project, index) => (
         <div
           key={index}
-          className="p-6 rounded-xl shadow-lg bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl"
+          className="p-6 transition duration-300 transform bg-white shadow-lg rounded-xl hover:scale-105 hover:shadow-xl"
         >
           <h3 className="text-2xl font-semibold text-gray-800">{project.title}</h3>
-          <p className="mt-2 text-gray-600 text-lg">{project.description}</p>
+          <p className="mt-2 text-lg text-gray-600">{project.description}</p>
 
           {/* Links Section */}
-          <div className="mt-4 flex space-x-4">
+          <div className="flex mt-4 space-x-4">
             {project.github && (
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300"
+                className="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-lg hover:bg-blue-600"
               >
                 GitHub
               </a>
@@ -281,7 +283,7 @@ Beyond development, I am experienced in Agile methodologies, Git version control
                 href={project.research}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300"
+                className="px-4 py-2 text-white transition duration-300 bg-green-500 rounded-lg hover:bg-green-600"
               >
                 Research Paper Published In IEEE
               </a>
@@ -291,7 +293,7 @@ Beyond development, I am experienced in Agile methodologies, Git version control
                 href={project.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300"
+                className="px-4 py-2 text-white transition duration-300 bg-green-500 rounded-lg hover:bg-green-600"
               >
                 website
               </a>
@@ -306,32 +308,32 @@ Beyond development, I am experienced in Agile methodologies, Git version control
 
 
 
-    <div id = "contact" className="flex flex-col items-center justify-center h-screen text-center px-10">
-            <h1 className="text-4xl font-bold text-center mb-8">Get In Touch</h1>
-            <div className="grid grid-cols-3 md:grid-cols-1 gap-8 max-w-4xl mx-auto align-middle justify-center">
+    <div id = "contact" className="flex flex-col items-center justify-center h-screen px-10 text-center">
+            <h1 className="mb-8 text-4xl font-bold text-center">Get In Touch</h1>
+            <div className="grid justify-center max-w-4xl grid-cols-3 gap-8 mx-auto align-middle md:grid-cols-1">
               {/* Left Card */}
               <Card className="shadow-lg animate-fade-in-up">
                 <CardContent className="p-6">
                   <img 
                     src="./cont.jpg" 
                     alt="Business Card" 
-                    className="rounded-lg mb-4 w-full"
+                    className="w-full mb-4 rounded-lg"
                   />
-                  <h2 className="text-2xl font-bold mb-2 text-gray-600">Dinidu Bandara</h2>
-                  <p className="text-gray-600 mb-4">
+                  <h2 className="mb-2 text-2xl font-bold text-gray-600">Dinidu Bandara</h2>
+                  <p className="mb-4 text-gray-600">
                   I'm looking forward to connecting with like-minded professionals and exploring opportunities to make an impact. Whether it’s about collaborating on innovative projects, discussing new technologies, or sharing ideas, I’d love to hear from you
                   </p>
-                  <p className="text-black-bold mb-4">I am open to work.</p>
-                  <h3 className="text-lg font-semibold mb-2 text-gray-600">Connect with me</h3>
-                  <div className="flex space-x-4 align-middle justify-center">
+                  <p className="mb-4 text-black-bold">I am open to work.</p>
+                  <h3 className="mb-2 text-lg font-semibold text-gray-600">Connect with me</h3>
+                  <div className="flex justify-center space-x-4 align-middle">
                     <a href="http://www.linkedin.com/in/dinidu-lochana-0a7b07241" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                      <FaLinkedin className="text-gray-500 h-6 w-6" />
+                      <FaLinkedin className="w-6 h-6 text-gray-500" />
                     </a>
                     <a href="https://github.com/Dinidu-Lochana" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                      <FaGithub className="text-gray-500 h-6 w-6" />
+                      <FaGithub className="w-6 h-6 text-gray-500" />
                     </a>
                     <a href="mailto:24.dinidulochana@gmail.com" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                      <FaEnvelope className="text-gray-500 h-6 w-6" />
+                      <FaEnvelope className="w-6 h-6 text-gray-500" />
                     </a>
                     
                   </div>
