@@ -86,6 +86,14 @@ const RainyAnimation = () => (
     ))}
   </div>
 );
+const ContentWrapper = ({ children }) => {
+  return (
+    <div className="relative z-10">
+      {children}
+    </div>
+  );
+};
+
 
 const SkillCard = ({ skill }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -237,7 +245,7 @@ export default function Home() {
         {darkMode && <RainyAnimation />}
       <Navbar />
       
-    
+    <ContentWrapper>
       {/* Hero Section */}
       <section id="home" className="flex flex-col items-center justify-center h-screen px-4 text-center">
       
@@ -307,12 +315,12 @@ export default function Home() {
               <div className="text-center md:w-1/2 md:text-left">
               <h3 className={`text-lg font-semibold ${darkMode ? "text-[#38534f]" : "text-purple-600"}`}>ABOUT</h3>
                 <h1 className="mt-2 text-4xl font-bold">Who I Am</h1>
-                <p className="max-w-3xl mt-6 text-left text-l text-gray-1000">
-                Hello! I'm Oshadi, a passionate and driven Software Engineering student with hands-on experience in full-stack development, mobile applications, and machine learning. I enjoy exploring new technologies and leveraging them to create innovative solutions that solve real-world problems.
+                <p className="max-w-3xl mt-6 text-left text-l text-gray-1000 text-lg">
+                 Hello! I'm Oshadi, a passionate and driven Software Engineering student with hands-on experience in full-stack development, mobile applications, and machine learning. I enjoy exploring new technologies and leveraging them to create innovative solutions that solve real-world problems.
 
-              With a strong foundation in React, Flutter, .NET, Node.js, and MongoDB, I have developed and deployed full-stack applications that enhance user experiences. <br/><br/>My expertise extends to machine learning and deep learning, where I have worked with CNN, XGBoost, and TensorFlow to build AI-driven models, including brain tumor classification and personalized recommendation systems.
+                 With a strong foundation in React, Flutter, .NET, Node.js, and MongoDB, I have developed and deployed full-stack applications that enhance user experiences. <br/><br/>My expertise extends to machine learning and deep learning, where I have worked with CNN, XGBoost, and TensorFlow to build AI-driven models, including brain tumor classification and personalized recommendation systems.
 
-                    I thrive in collaborative environments, having worked on multiple projects where I applied Agile methodologies, Git version control, and MVC architecture to deliver efficient and scalable software. My research contributions in AI-powered facial diagnosis and salon management have been published in IEEE-indexed conferences, showcasing my ability to merge academic research with practical applications.
+                I thrive in collaborative environments, having worked on multiple projects where I applied Agile methodologies, Git version control, and MVC architecture to deliver efficient and scalable software. My research contributions in AI-powered facial diagnosis and salon management have been published in IEEE-indexed conferences, showcasing my ability to merge academic research with practical applications.
                 </p>
                 <p className="max-w-3xl mt-6 text-left text-l text-gray-1000">
                   Thank you for visiting my portfolio website. Feel free to explore my projects, and please don't 
@@ -349,99 +357,131 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-<section id="projects" className="py-16">
-  <div className="px-6 mx-auto max-w-7xl">
-    <h2 className="mb-12 text-3xl font-semibold text-center text-gray-800 dark:text-white">Projects</h2>
-    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {projects.map((project, idx) => (
-        <div
-          key={idx}
-          className="relative p-6 transition-all bg-gray-100 border-none dark:bg-gray-700 rounded-xl hover:shadow-xl"
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
-          <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{project.title}</h3>
-          <p className="mt-4 text-gray-600 dark:text-gray-300">{project.description}</p>
+      <section id="projects" className="py-20 bg-gray-20 dark:bg-gray-90">
+      <div className="px-6 mx-auto max-w-7xl">
+      <h2 className={`mb-2 ${darkMode ? "text-[#38534f]" : "text-violet-500"} font`}>PROJECTS</h2>
+      <h1 className="mb-12 text-4xl font-bold text-gray-900 dark:text-white">What I did</h1>
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project, idx) => (
+            <div
+              key={idx}
+              className="relative p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden group transform transition-transform duration-300 ease-in-out hover:scale-105"
+            >
+              <div className="relative z-10">
+                {/* Project Title */}
+                <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 group-hover:text-purple-600 transition-colors duration-300">
+                  {project.title}
+                </h3>
 
-          <div className="flex mt-4 space-x-4">
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={darkMode ? "text-[#2cffd8] hover:text-[#38534f]" : "text-purple-600 hover:text-purple-800"}
-              >
-                GitHub
-              </a>
-            )}
-            {project.website && (
-              <a
-                href={project.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={darkMode ? "text-[#2cffd8] hover:text-[#38534f]" : "text-purple-600 hover:text-purple-800"}
-              >
-                Website
-              </a>
-            )}
-            {project.research && (
-              <a
-                href={project.research}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={darkMode ? "text-[#2cffd8] hover:text-[#38534f]" : "text-purple-600 hover:text-purple-800"}
-              >
-                Research
-              </a>
-            )}
-          </div>
+                {/* Project Description */}
+                <p className="text-gray-800 dark:text-gray-300 mb-6 group-hover:text-gray-1000 transition-colors duration-300">
+                  {project.description}
+                </p>
+
+                {/* Action Links */}
+                <div className="flex space-x-6">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-600 dark:text-[#2cffd8] hover:text-purple-800 dark:hover:text-[#38534f] transition-colors duration-300"
+                    >
+                      <i className="fab fa-github"></i> GitHub
+                    </a>
+                  )}
+                  {project.website && (
+                    <a
+                      href={project.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-600 dark:text-[#2cffd8] hover:text-purple-800 dark:hover:text-[#38534f] transition-colors duration-300"
+                    >
+                      <i className="fas fa-globe"></i> Website
+                    </a>
+                  )}
+                  {project.research && (
+                    <a
+                      href={project.research}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-600 dark:text-[#2cffd8] hover:text-purple-800 dark:hover:text-[#38534f] transition-colors duration-300"
+                    >
+                      <i className="fas fa-book"></i> Research
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              {/* Hover Effect Background (Gradient) */}
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-purple to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+</section>
+
+
+
+      {/* Contact Section */}
+  <section id="contact" className=" py-16 text-white">
+  <div className="max-w-7xl mx-auto px-6">
+    {/* Title Section */}
+    <h2 className={`mb-2 ${darkMode ? "text-[#38534f]" : "text-violet-500"} font`}>Contact</h2>
+    <h1 className="mb-12 text-4xl font-bold text-gray-900 dark:text-white">Let’s Connect</h1>
+    <div className="text-center mb-12">
+    
+      <p className="mt-4 text-lg max-w-2xl mx-auto text-gray-700 text-xl ">
+        I’m always open to discussing new projects, ideas, or opportunities. Let’s chat!
+      </p>
+    </div>
+
+    {/* Contact Card */}
+    <div className="flex justify-center space-x-10">
+      
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full md:w-96 p-8">
+        <div className="flex justify-center mb-6">
+          <img 
+            src="./cont.jpg" 
+            alt="Business Card"
+            className="rounded-full w-32 h-32 object-cover border-4 border-indigo-500"
+          />
+        </div>
+
+        <h2 className="text-3xl font-semibold text-gray-800 dark:text-white text-center mb-4">
+          Oshadi Senevirathna
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 text-center mb-6">
+          I'm looking forward to connecting with professionals and discussing new opportunities. Whether it’s about collaboration, technology, or innovative projects, let’s talk!
+        </p>
+
+        <p className="text-black dark:text-white font-semibold text-center mb-6">
+          Open to Work
+        </p>
+
+        <div className="flex justify-center space-x-6">
+          <a href="https://www.linkedin.com/in/oshadi-senevirathna-91b182244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
+            className="text-indigo-500 hover:text-indigo-700 p-3 bg-transparent border-2 border-indigo-500 rounded-full transform transition duration-300 hover:scale-105">
+            <FaLinkedin className="w-6 h-6" />
+          </a>
+          <a href="https://github.com/it21096884" 
+            className="text-gray-400 hover:text-gray-200 p-3 bg-transparent border-2 border-gray-100 rounded-full transform transition duration-300 hover:scale-105">
+            <FaGithub className="w-6 h-6 " />
+          </a>
+          <a href="mailto:neeranjala905@gmail.com" 
+            className="text-red-500 hover:text-red-700 p-3 bg-transparent border-2 border-red-500 rounded-full transform transition duration-300 hover:scale-105">
+            <FaEnvelope className="w-6 h-6" />
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-
-      {/* Contact Section */}
-      <section id="contact" className="flex flex-col items-center justify-center min-h-screen px-10 py-16 ">
-      
-      <div id = "contact" className="flex flex-col items-center justify-center h-screen px-10 text-center">
-            <h1 className="mb-8 text-4xl font-bold text-center">Get In Touch</h1>
-            <div className="grid justify-center max-w-4xl grid-cols-3 gap-8 mx-auto align-middle md:grid-cols-1">
-              {/* Left Card */}
-              <Card className="shadow-lg animate-fade-in-up">
-                <CardContent className="p-6">
-                  <img 
-                    src="./cont.jpg" 
-                    alt="Business Card" 
-                    className="w-full mb-4 rounded-lg"
-                  />
-                  <h2 className="mb-2 text-2xl font-bold text-gray-600">Oshadi Senevirathna</h2>
-                  <p className="mb-4 text-gray-600">
-                  I'm looking forward to connecting with like-minded professionals and exploring opportunities to make an impact. Whether it’s about collaborating on innovative projects, discussing new technologies, or sharing ideas, I’d love to hear from you
-                  </p>
-                  <p className="mb-4 text-black-bold">I am open to work.</p>
-                  <h3 className="mb-2 text-lg font-semibold text-gray-600">Connect with me</h3>
-                  <div className="flex justify-center space-x-4 align-middle">
-                    <a href="https://www.linkedin.com/in/oshadi-senevirathna-91b182244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                      <FaLinkedin className="w-6 h-6 text-gray-500" />
-                    </a>
-                    <a href="https://github.com/it21096884" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                      <FaGithub className="w-6 h-6 text-gray-500" />
-                    </a>
-                    <a href="mailto:neeranjala905@gmail.com" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                      <FaEnvelope className="w-6 h-6 text-gray-500" />
-                    </a>
-                    
-                  </div>
-                </CardContent>
-              </Card>
-      
-              </div>
-            </div>
-   
-      </section>
+      </ContentWrapper>
     </div>
+    
+
     </ThemeProvider>
   );
 }
